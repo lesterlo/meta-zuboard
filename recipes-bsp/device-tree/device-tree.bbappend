@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-EXTRA_OVERLAYS:append:zub = " enable_rpu0.dtsi"
+EXTRA_OVERLAYS:append:zub = " enable_rspmsg.dtsi"
+# EXTRA_DT_INCLUDE_FILES:append:zub = " enable_rspmsg.dtsi"
 
 # do_configure:append() {
 #    # Ensure the openamp dtsi is included in the device tree

@@ -1,0 +1,20 @@
+
+&{rf5ss@ff9a0000} {
+    
+    rpmsg0: rpmsg-channel@0 {
+        compatible = "rpmsg-char";
+        reg = <0>;
+        interrupt-parent = <&gic>;
+        interrupts = <0 30 4>;  /* Adjust interrupt for R5 core 0 */
+        status = "okay";
+    };
+
+    
+    rpmsg1: rpmsg-channel@1 {
+        compatible = "rpmsg-char";
+        reg = <1>;
+        interrupt-parent = <&gic>;
+        interrupts = <0 31 4>;  /* Adjust interrupt for R5 core 1 */
+        status = "okay";
+    };
+};
