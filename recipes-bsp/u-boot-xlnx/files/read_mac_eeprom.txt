@@ -2,12 +2,11 @@
 i2c dev 0
 
 # Read 6 bytes from EEPROM starting at address 0x9A
-i2c read 0x58 0x9a 0 6 eeprom_mac
+i2c read 0x58 0x9a 6 0x1000
 
 # Convert the binary data to a MAC address string
 setexpr ethaddr fmt "%02x:%02x:%02x:%02x:%02x:%02x" \
-    ${eeprom_mac:0:1} ${eeprom_mac:1:1} ${eeprom_mac:2:1} \
-    ${eeprom_mac:3:1} ${eeprom_mac:4:1} ${eeprom_mac:5:1}
+    ${0x1000} ${0x1001} ${0x1002} ${0x1003} ${0x1004} ${0x1005}
 
 # Optionally save the environment with the new MAC address
 saveenv
