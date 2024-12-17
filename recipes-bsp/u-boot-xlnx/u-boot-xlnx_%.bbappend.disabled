@@ -1,0 +1,61 @@
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
+SRC_URI += "file://modify_feature.cfg"
+
+
+
+#----------  [Not working] Method 1, dts overlay      -----------------------------------
+SRC_URI += "file://eth_mac_overlay.dts"
+
+do_configure:append() {
+    cp ${WORKDIR}/eth_mac_overlay.dts ${S}/arch/arm/dts/
+}
+
+# do_compile:append() {
+#     # Compile the device tree overlay
+#     dtc -I dts -O dtb -o ${WORKDIR}/eth_mac_overlay.dtbo ${WORKDIR}/eth_mac_overlay.dts
+
+#     # Copy the overlay to the U-Boot device tree source folder
+#     cp ${WORKDIR}/eth_mac_overlay.dtbo ${S}/arch/arm/dts/
+# }
+
+# do_install:append() {
+#     # Install the device tree overlay to the boot directory
+#     install -d ${D}/boot/devicetree
+#     install -m 0644 ${WORKDIR}/eth_mac_overlay.dtbo ${D}/boot/devicetree/
+# }
+
+# FILES:${PN} += "/boot/devicetree/eth_mac_overlay.dtbo"
+
+#----------   [Not working] Method 2, inject a .scr with      -----------------------------------
+# DEPENDS += "u-boot-mkimage-native"
+# SRC_URI += "file://boot.cmd"
+
+# do_compile:append() {
+#     #???
+# }
+
+# do_install:append() {
+#     # Install boot.scr into the boot directory
+#     install -d "${D}/boot"
+#     install -m 0644 "${WORKDIR}/boot.scr" "${D}/boot/"
+# }
+
+#----------  [Not working] Method 3, make a .o executable     -----------------------------------
+# DEPENDS += "u-boot-mkimage-native"
+# SRC_URI += "file://eth_mac_overlay.dts"
+
+# do_compile:append() {
+#     #???
+# }
+
+# do_install:append() {
+#     # Install boot.scr into the boot directory
+#     install -d "${D}/boot"
+#     install -m 0644 "${WORKDIR}/boot.scr" "${D}/boot/"
+# }
+
+
+#----------  [Not working] Method 4, fix MAC address on build   -----------------------------------
+# SRC_URI += "file://uboot_custom_env.cfg"
+# UBOOT_ENV += " uboot_custom_env.cfg"

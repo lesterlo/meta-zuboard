@@ -1,27 +1,16 @@
-/dts-v1/;
-/ {
-    chosen {
-        xlnx,eeprom = &macaddr_eeprom;  // Link to the EEPROM node
-    };
+&i2c1 {
+    status = "okay";  /* Enable the I2C1 controller */
 
-    /* EEPROM on Reference Design board for storing MAC Address */
-    macaddr_eeprom: eeprom@58 {  // Correct I2C address 0x58
-        compatible = "i2c-eeprom", "microchip,24aa025e48t", "atmel,24c01";
-        reg = <0x58>;  // I2C address of the EEPROM
+    eeprom@58 {
+        compatible = "atmel,24mac402";
+        reg = <0x58>;  /* I2C address of the EEPROM */
         pagesize = <16>;
-        size = <256>;  // EEPROM size
+        size = <256>;  /* EEPROM size */
         address-width = <8>;
-        num-addresses = <1>;  // Only one chip in this case
+        num-addresses = <1>;
 
-        nvmem-cells = <&mac_address_cells>;  // Reference the NVMEM cell for mac address
-        nvmem-cell-names = "mac-address";    // Name of the cell
-    };
-
-    nvmem {
-        mac_address_cells: mac_address@9A {
-            compatible = "nvmem-cell";
-            reg = <0x9A 0x06>;  // Read 6 bytes from 0x9A in EEPROM for MAC address
-            nvmem-name = "mac-address";
+        eth0_addr: eth-mac-addr@9A {
+            reg = <0x9A 0x06>;
         };
     };
 };
